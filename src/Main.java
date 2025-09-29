@@ -8,6 +8,10 @@ import Strategy.AlumnoSt;
 import Strategy.ExamenExtra;
 import Strategy.PromedioPonderado;
 import Strategy.PromedioSimple;
+import TemplateMethod.ReporteAcademico;
+import TemplateMethod.ReporteAlumno;
+import TemplateMethod.ReporteCurso;
+import Visitor.*;
 import observer.*;
 import State.*;
 
@@ -194,6 +198,35 @@ public class Main {
         enzo.setEstrategia(new ExamenExtra(8));
         enzo.calcularNotaFinal();
         System.out.println("");
+
+        //Template Method
+        System.out.println("=======TEMPLATE METHOD=======");
+        System.out.println("");
+
+        //Creamos dos reportes
+        ReporteAcademico r1 = new ReporteCurso("Desarrollo de Software", 7.8, 72);
+        ReporteAcademico r2 = new ReporteAlumno("Facundo Rodriguez", "51064", 8.8);
+
+        //Generamos dos reportes (el del curso y el del alumno)
+        r1.generarReporte();
+        System.out.println("");
+        r2.generarReporte();
+        System.out.println("");
+
+        //Visitor
+        System.out.println("=======VISITOR=======");
+        System.out.println("");
+
+        //Creamos alumnos
+        AlumnoV luciano = new AlumnoRegular("Luciano Romero", 100000);
+        AlumnoV lautaro = new AlumnoBecado("Lautaro Sosa", 100000, 0.5);
+
+        //Creamos una beca para ser aplicada
+        Visitor becaDeInvestigacion = new AplicarBeca();
+
+        //Cada alumno la debe aceptar con el método aceptarBeca()
+        lautaro.aceptar(becaDeInvestigacion);
+        luciano.aceptar(becaDeInvestigacion);
 
 
 
