@@ -2,6 +2,10 @@ import ChainOfResponsability.*;
 import Command.*;
 import Iterator.*;
 import Memento.*;
+import observer.*;
+
+
+
 
 public class Main {
     public static void main(String[] args) {
@@ -107,8 +111,29 @@ public class Main {
 
         System.out.println("");
 
+        //Observer
+        System.out.println("=======OBSERVER=======");
+        System.out.println("");
 
+        //Creamos un curso
+        CursoOb disenio = new CursoOb("Diseño de Sistemas", "Jueves 19:00");
 
+        //Creamos a tres alumnos
+        AlumnoOb ale = new AlumnoOb("Alejandro Cortés");
+        AlumnoOb franco = new AlumnoOb("Franco Siccatto");
+        AlumnoOb facu = new AlumnoOb("Facundo Rodriguez");
+
+        //Lo sucribimos a uno y desucribimos a otro
+        disenio.suscribrir(franco);
+        disenio.desuscribir(ale);
+        disenio.suscribrir(facu);
+
+        //Publicamos un aviso y actualizamos la hora
+        disenio.publicarAviso("Este jueves arrancamos el eje de secuencia");
+        disenio.actualizarHorario("Jueves 20:30");
+
+        disenio.desuscribir(franco);
+        disenio.publicarAviso("Se habilitó material extra en el campus");
 
     }
 }
