@@ -2,9 +2,16 @@ import ChainOfResponsability.*;
 import Command.*;
 import Iterator.*;
 import Memento.*;
+import State.EnEspera;
+import State.Inscripcion;
+import Strategy.AlumnoSt;
+import Strategy.ExamenExtra;
+import Strategy.PromedioPonderado;
+import Strategy.PromedioSimple;
 import observer.*;
+import State.*;
 
-
+import java.util.Arrays;
 
 
 public class Main {
@@ -123,7 +130,7 @@ public class Main {
         AlumnoOb franco = new AlumnoOb("Franco Siccatto");
         AlumnoOb facu = new AlumnoOb("Facundo Rodriguez");
 
-        //Lo sucribimos a uno y desucribimos a otro
+        //Lo sucribimos a uno y desuscribimos a otro
         disenio.suscribrir(franco);
         disenio.desuscribir(ale);
         disenio.suscribrir(facu);
@@ -134,6 +141,63 @@ public class Main {
 
         disenio.desuscribir(franco);
         disenio.publicarAviso("Se habilitó material extra en el campus");
+
+        System.out.println("");
+
+        //State
+        System.out.println("=======STATE=======");
+        System.out.println("");
+
+        //Creamos inscripciones
+        Inscripcion inscripcion1 = new Inscripcion(new EnEspera());
+
+        inscripcion1.mostrarEstado(); //Mostramos el estado inicial
+
+        //Primer cambio de Estado
+        System.out.println("==PRIMER CAMBIO DE ESTADO==");
+        inscripcion1.cambiarEstado(); // Se cambia el estado y pasa a estar "INSCRITO"
+        inscripcion1.mostrarEstado(); //Se muestra el estado después del primer cambio
+        System.out.println("");
+
+        //Segundo cambio de estado
+        System.out.println("==SEGUNDO CAMBIO DE ESTADO==");
+        inscripcion1.cambiarEstado(); // Se cambia el estado y pasa a estar "CANCELADO"
+        inscripcion1.mostrarEstado(); //Se muestra el estado después del segundo cambio
+        System.out.println("");
+
+        //Tercer cambio de estado
+        System.out.println("==TERCER CAMBIO DE ESTADO==");
+        inscripcion1.cambiarEstado(); // El estado no cambia
+        inscripcion1.mostrarEstado(); //Se debe seguir mostando cancelado
+        System.out.println("");
+
+        //Strategy
+        System.out.println("=======STRATEGY=======");
+        System.out.println("");
+
+        //Creamos un alumno
+        AlumnoSt enzo = new AlumnoSt("Enzo", Arrays.asList(3,7,6));
+        //Usamos la estrategia de Promedio Simple
+        System.out.println("==PROMEDIO SIMPLE==");
+        enzo.setEstrategia(new PromedioSimple());
+        enzo.calcularNotaFinal();
+        System.out.println("");
+
+        //Usamos la estrategia de Promedio Ponderado
+        System.out.println("==PROMEDIO PONDERADO==");
+        enzo.setEstrategia(new PromedioPonderado(Arrays.asList(2,3,9)));
+        enzo.calcularNotaFinal();
+        System.out.println("");
+
+        //Usamos la estrategia del Examen Extra
+        System.out.println("==EXAMEN EXTRA==");
+        enzo.setEstrategia(new ExamenExtra(8));
+        enzo.calcularNotaFinal();
+        System.out.println("");
+
+
+
+
 
     }
 }
