@@ -1,19 +1,13 @@
 import ChainOfResponsability.*;
 import Command.*;
 import Iterator.*;
+import Mediator.*;
 import Memento.*;
-import State.EnEspera;
-import State.Inscripcion;
-import Strategy.AlumnoSt;
-import Strategy.ExamenExtra;
-import Strategy.PromedioPonderado;
-import Strategy.PromedioSimple;
-import TemplateMethod.ReporteAcademico;
-import TemplateMethod.ReporteAlumno;
-import TemplateMethod.ReporteCurso;
+import State.*;
+import Strategy.*;
+import TemplateMethod.*;
 import Visitor.*;
 import observer.*;
-import State.*;
 
 import java.util.Arrays;
 
@@ -89,7 +83,22 @@ public class Main {
         System.out.println("=======MEDIATOR=======");
         System.out.println("");
 
+        //Creamos un ChatRoom
+        ChatMediator chat = new ChatRoom();
 
+        //Creamos los usuarios
+        Usuario a1 = new AlumnoM(chat, "Nicolás Díaz Ruiz");
+        Usuario a2 = new AlumnoM(chat, "Facundo Rodriguez");
+        Usuario p = new ProfesorM(chat, "Alberto Cortez");
+
+        a1.enviar("¿Cuando es el primer parcial?");
+        p.enviar("El parcial es la primer semana de Noviembre");
+        a1.enviar("Gracias profe!!");
+
+        System.out.println("");
+
+        a2.recibir("La nota de su examen está aprobada.", p);
+        p.recibir("Muchas gracias por avisar profesor.", a2);
 
 
         System.out.println("");

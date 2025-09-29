@@ -12,8 +12,8 @@ public class ChatRoom implements ChatMediator{
 
     public void enviar(String msg, Usuario usuario){
         for (Usuario u : usuarios)
-            if (u != usuario) {
-                usuario.recibir(msg);
+            if (u != usuario) { //Con esto evitamos que se envíe a si mismo
+                u.recibir(msg, usuario);
             }
     }
 }

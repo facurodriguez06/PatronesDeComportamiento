@@ -9,6 +9,10 @@ public abstract class Usuario {
         this.nombre = nombre;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public abstract  void enviar(String msg);
-    public abstract void recibir(String msg);
+    public abstract void recibir(String msg, Usuario remitente);
 }
